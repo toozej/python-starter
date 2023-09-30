@@ -1,0 +1,19 @@
+---
+version: "3"
+services:
+  python-starter:
+    container_name: python-starter
+    image: toozej/python-starter:latest
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=false"
+      # labels below for publishing as web service
+      # - "traefik.docker.network=traefik"
+      # - "traefik.http.routers.python-starter.rule=Host(`python-starter.test`)"
+      # - "traefik.http.routers.python-starter.middlewares=http-redirect-https@file,headers@file"
+      # - "traefik.http.routers.python-starter-secure.entrypoints=https"
+      # - "traefik.http.routers.python-starter-secure.rule=Host(`python-starter.test`)"
+      # - "traefik.http.routers.python-starter-secure.middlewares=headers@file"
+      # - "traefik.http.routers.python-starter-secure.tls=true"
+    # networks:
+      # - traefik

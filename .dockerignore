@@ -1,0 +1,14 @@
+.git
+.github
+.gitignore
+.pre-commit-config.yaml
+docs
+LICENSE
+CREDITS.md
+README.md
+Makefile
+Dockerfile*
+docker-compose.yml
+*.env
+.env.sample
+*.key
