@@ -2,8 +2,8 @@
 
 set -Eeuo pipefail
 
-if ! command -v go; then
-    echo "Golang not installed, exiting"
+if ! command -v python3; then
+    echo "Python3 not installed, exiting"
     exit 1
 fi
 
