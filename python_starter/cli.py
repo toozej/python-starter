@@ -17,3 +17,7 @@ def cli():
 def first_command(example, option):
     "Command description goes here"
     click.echo("Here is some output")
+    if example:
+        click.echo("example argument was set")
+    if option:
+        click.echo("option was set")
