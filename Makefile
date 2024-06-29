@@ -11,19 +11,23 @@ IMAGE_AUTHOR = toozej
 IMAGE_NAME = python-starter
 IMAGE_TAG = latest
 
-.PHONY: all build run get-cosign-pub-key verify update-python-version pre-commit pre-commit-install pre-commit-run clean help
+.PHONY: all build test run local-run get-cosign-pub-key verify update-python-version pre-commit pre-commit-install pre-commit-run clean help
 
 all: build run verify ## Run default workflow
 
 build: ## Build Dockerized project
 	docker build -f $(CURDIR)/Dockerfile -t $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG) .
 
-#test: ## Test Dockerized project
-#	docker build --target test -f $(CURDIR)/Dockerfile -t $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG) . 
+test: ## Test Dockerized project
+	docker build --target test -f $(CURDIR)/Dockerfile -t $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG) .
 
 run: ## Run Dockerized project
 	-docker kill $(IMAGE_NAME)
 	docker run --rm --name $(IMAGE_NAME) $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG)
+
+local-run: ## Run Python project locally
+	python3 -m venv venv && source $(CURDIR)/venv/bin/activate && pip install -r $(CURDIR)/requirements.txt
+	python3 $(CURDIR)/python_starter/__main__.py command --help
 
 get-cosign-pub-key: ## Get golang-starter Cosign public key from GitHub
 	test -f $(CURDIR)/python-starter.pub || curl --silent https://raw.githubusercontent.com/toozej/python-starter/main/python-starter.pub -O
