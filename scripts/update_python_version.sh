@@ -7,7 +7,7 @@ if ! command -v python3; then
     exit 1
 fi
 
-OLD_PYTHON_VERSION="3.11"
+OLD_PYTHON_VERSION="3.12"
 NEW_PYTHON_VERSION="${1}"
 GIT_REPO_ROOT=$(git rev-parse --show-toplevel)
 FILES_NEEDING_UPDATES="${GIT_REPO_ROOT}/Dockerfile* ${GIT_REPO_ROOT}/README.md ${GIT_REPO_ROOT}/scripts/update_python_version.sh ${GIT_REPO_ROOT}/.github/workflows/*"
