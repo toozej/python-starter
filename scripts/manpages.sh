@@ -5,4 +5,5 @@ set -euo pipefail
 rm -rf manpages
 mkdir manpages
 
-click-man --target manpages/ cli
+make local-install
+uv run click-man --man-version 0.5.0 --target manpages/ python-starter
