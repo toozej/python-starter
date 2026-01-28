@@ -12,3 +12,6 @@ docker-compose.yml
 *.env
 .env.sample
 *.key
+AGENTS.md
+manpages/
+completions/

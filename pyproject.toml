@@ -1,0 +1,90 @@
+# Keep tooling configs in one place (ruff/pytest/vulture/ty, etc.)
+# and enable modern packaging (PEP 621).
+
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "python-starter"
+version = "0.1.0"
+description = "python-starter"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "GPL-3.0-only" }
+authors = [{ name = "toozej" }]
+keywords = ["starter", "template"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+
+dependencies = [
+  "click>=8.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/toozej/python-starter"
+Issues = "https://github.com/toozej/python-starter/issues"
+CI = "https://github.com/toozej/python-starter/actions"
+Changelog = "https://github.com/toozej/python-starter/releases"
+
+[project.scripts]
+python-starter = "python_starter.cli:cli"
+
+# uv dependency groups (PEP 735-style). uv consumes these directly.
+[dependency-groups]
+test = [
+  "pytest>=9.0.0",
+  "pytest-xdist>=2.2.1",
+  "pytest-asyncio>=1.2.0",
+]
+lint = [
+  "ruff>=0.14.0",
+  "ty>=0.0.14",
+  "bandit>=1.7.0",
+  "vulture>=2.14",
+  "pyupgrade>=3.21.0",
+]
+dev = [
+  "pre-commit>=4.0.0",
+  "click-man>=0.1.0",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+# Match the previous pre-commit defaults (see `.pre-commit-config.yaml`).
+ignore = ["E501", "E203", "E231", "E722", "C901"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-q"]
+
+[tool.vulture]
+min_confidence = 80
+paths = ["python_starter"]
+
+[tool.uv]
+# Prefer downloading Python rather than relying on system Python.
+# This helps keep devcontainers/CI consistent.
+python-preference = "only-managed"
