@@ -1,56 +1,88 @@
 # python-starter
 
-## features of this starter template
-- follows common Python best practices in terms of repo/project layout, and includes explanations of what goes where in README files
-- Makefile for easy building, deploying, testing, updating, etc. both Dockerized and using locally installed Python toolchain
-- docker-compose project for easily hosting built Dockerized Python project, with optional support for Python web services
-- scripts to make using the starter template easy, and to update the Python version when a new one comes out
-- built-in security scans, vulnerability warnings and auto-updates via Dependabot and GitHub Actions
-- pre-commit hooks for ensuring formatting, linting, security checks, etc.
+![Python](https://img.shields.io/badge/python-3.10%E2%80%933.14-blue)
+![CI](https://img.shields.io/github/actions/workflow/status/toozej/python-starter/ci.yaml)
+![Docker Pulls](https://img.shields.io/docker/pulls/toozej/python-starter)
+![Downloads](https://img.shields.io/github/downloads/toozej/python-starter/total)
 
-## changes required to use this as a starter template
-- generate a GitHub fine-grained access token (used in repo as "GITHUB_TOKEN" and in GitHub Actions Secrets as "GH_TOKEN") with the following read/write permissions
-    - actions
-    - code scanning alerts
-    - commit statuses
-    - contents
-    - dependabot alerts
-    - dependabot secrets
-    - deployments
-    - environments
-    - issues
-    - pages
-    - pull requests
-    - secret scanning alerts
-    - secrets
-    - webhooks
-    - workflows
-- generate cosign keypair
-    - `cosign generate-key-pair`
-    - `mv cosign.key $REPO_NAME.key`
-    - `mv cosign.pub $REPO_NAME.pub`
-- ensure new repo has the following GitHub Actions Secrets and local shell environment variables stored in `./.env`
-    - (`cp .env.sample .env` is a good place to start for local shell environment variables)
-    - GH_TOKEN
-    - GH_GHCR_TOKEN
-    - DOCKERHUB_USERNAME
-    - DOCKERHUB_TOKEN
-    - QUAY_USERNAME
-    - QUAY_TOKEN
-    - SNYK_TOKEN
-    - COSIGN_PRIVATE_KEY
-    - COSIGN_PASSWORD
-- set up new repository in quay.io web console
-    - (DockerHub and GitHub Container Registry do this automatically on first push/publish)
-    - name must match Git repo name
-    - grant robot user with username stored in QUAY_USERNAME "write" permissions (your quay.io account should already have admin permissions)
-- find/replace python-starter to new repo name
-    - run `./scripts/use_starter.sh $NEW_PROJECT_NAME_GOES_HERE`
-    - to rename with a different GitHub username `./scripts/use_starter.sh $NEW_PROJECT_NAME_GOES_HERE $GITHUB_USERNAME_GOES_HERE`
-- set built packages visibility in GitHub packages to public
-    - navigate to https://github.com/users/$USERNAME/packages/container/$REPO/settings
-    - scroll down to "Danger Zone"
-    - change visibility to public
+## ✨ What this starter gives you
 
-## changes required to update python version
-- run `./scripts/update_python_version.sh $NEW_VERSION_GOES_HERE`
+- 🧰 Modern packaging via `pyproject.toml` + `uv`
+- ✅ Pre-commit checks (Ruff, Vulture, Bandit, PyUpgrade, `ty`, actionlint, etc.)
+- 🧪 Unit tests with pytest (and a Docker test target)
+- 🐳 Dockerfile + docker-compose examples
+- 🔁 CI matrix for Python 3.10–3.14
+- 🔄 Dependabot updates for Python, Docker, devcontainers, and GitHub Actions
+
+## 🚀 Quick start
+
+```bash
+make pre-reqs-install
+uv sync --all-groups
+uv run -m pytest
+uv run pre-commit run --all-files
+```
+
+## 🧱 Using this repo as a template
+
+Run:
+
+```bash
+./scripts/use_starter.sh <new-project-name> [github-username]
+```
+
+This renames the project identifiers and randomizes the scheduled CI minute.
+
+## 🧪 Common Make targets
+
+- `make test` (Docker test stage)
+- `make local` (uv-based local workflow)
+- `make pre-commit`
+- `make local-install` (install CLI locally via uv)
+
+## 🤖 AI agents
+
+See [`AGENTS.md`](AGENTS.md:1).
+
+## 💻 CLI Usage
+
+This project includes a Click-based CLI. You can run it with:
+
+```bash
+# Using uv run (no install required)
+uv run python -m python_starter --help
+```
+
+### Install CLI Locally
+
+To install the CLI globally and run it as a standalone command:
+
+```bash
+make local-install
+```
+
+Once installed, you can run the CLI directly:
+
+```bash
+python_starter --help
+```
+
+### Available Global Options
+
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--dry-run` | `-d` | Run in dry-run mode (no changes will be made) |
+| `--force` | `-f` | Force execution (skip confirmation prompts) |
+| `--debug` | `-D` | Enable debug mode |
+| `--verbose` | `-v` | Enable verbose output (use multiple times for more verbosity) |
+| `--quiet` | `-q` | Suppress output (quiet mode) |
+
+### Example Commands
+
+```bash
+# Run command with dry-run and verbose output
+uv run python -m python_starter -d -v command example
+
+# Force execution with debug mode
+uv run python -m python_starter -f -D command example
+```

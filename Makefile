@@ -11,7 +11,7 @@ IMAGE_AUTHOR = toozej
 IMAGE_NAME = python-starter
 IMAGE_TAG = latest
 
-.PHONY: all build test run local-run get-cosign-pub-key verify update-python-version pre-commit pre-commit-install pre-commit-run clean help
+.PHONY: all build test run up down local local-update-deps local-install local-run local-test local-lint local-fmt get-cosign-pub-key verify update-python-version pre-reqs-install pre-commit pre-commit-install pre-commit-run clean help
 
 all: build run verify ## Run default workflow
 
@@ -25,11 +25,36 @@ run: ## Run Dockerized project
 	-docker kill $(IMAGE_NAME)
 	docker run --rm --name $(IMAGE_NAME) $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG)
 
-local-run: ## Run Python project locally
-	python3 -m venv venv && source $(CURDIR)/venv/bin/activate && pip install -r $(CURDIR)/requirements.txt
-	python3 $(CURDIR)/python_starter/__main__.py command --help
+up: ## Start docker-compose services (pull + up -d)
+	docker compose -f $(CURDIR)/docker-compose.yml pull
+	docker compose -f $(CURDIR)/docker-compose.yml up -d
 
-get-cosign-pub-key: ## Get golang-starter Cosign public key from GitHub
+down: ## Stop docker-compose services
+	docker compose -f $(CURDIR)/docker-compose.yml down --remove-orphans
+
+local: local-update-deps local-fmt local-lint local-test local-run ## Run local toolchain workflow
+
+local-update-deps: ## Update dependencies locally
+	uv sync --all-groups
+
+local-install: ## Install python-starter CLI locally via uv (builds + installs)
+	uv tool install --force-reinstall .
+
+local-run: ## Run Python project locally
+	uv run python -m python_starter.__main__ command --help
+
+local-test: ## Run unit tests locally
+	uv run -m pytest
+	# use uv run -m pytest -n auto for parallel tests if needed, note can be slower for small test suites
+
+local-lint: ## Run linters locally (ruff + ty)
+	uv run ruff check --fix .
+	uvx ty check .
+
+local-fmt: ## Format code locally
+	uv run ruff format .
+
+get-cosign-pub-key: ## Get python-starter Cosign public key from GitHub
 	test -f $(CURDIR)/python-starter.pub || curl --silent https://raw.githubusercontent.com/toozej/python-starter/main/python-starter.pub -O
 
 verify: get-cosign-pub-key ## Verify Docker image with Cosign
@@ -40,9 +65,15 @@ update-python-version: ## Update Python version
 	echo "Updating Python to $$VERSION"; \
 	./scripts/update_python_version.sh $$VERSION
 
-pre-commit: pre-commit-install pre-commit-run ## Install and run pre-commit hooks
+pre-reqs-install: ## Install pre-requisite tools for using python-starter
+	# uv
+	command -v uv || brew install uv || (echo "uv not found. Install from https://docs.astral.sh/uv/" && exit 1)
+
+pre-commit: pre-reqs-install pre-commit-install pre-commit-run ## Install and run pre-commit hooks
 
 pre-commit-install: ## Install pre-commit hooks and necessary binaries
+	# cosign
+	go install github.com/sigstore/cosign/cmd/cosign@latest
 	# actionlint
 	command -v actionlint || brew install actionlint || go install github.com/rhysd/actionlint/cmd/actionlint@latest
 	# install and update pre-commits
@@ -51,6 +82,7 @@ pre-commit-install: ## Install pre-commit hooks and necessary binaries
 
 pre-commit-run: ## Run pre-commit hooks against all files
 	pre-commit run --all-files
+	uvx ty check
 
 clean: ## Clean up built Docker images
 	docker image rm $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG)
