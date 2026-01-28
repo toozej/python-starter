@@ -59,7 +59,7 @@ lint = [
 ]
 dev = [
   "pre-commit>=4.0.0",
-  "click-man>=0.1.0",
+  "click-man>=0.5.0",
 ]
 
 [tool.ruff]

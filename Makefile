@@ -77,6 +77,11 @@ pre-commit-install: ## Install pre-commit hooks and necessary binaries
 	# actionlint
 	command -v actionlint || brew install actionlint || go install github.com/rhysd/actionlint/cmd/actionlint@latest
 	# install and update pre-commits
+	# determine if on Debian 12 and if so use pip to install more modern pre-commit version
+	grep --silent "VERSION=\"12 (bookworm)\"" /etc/os-release && apt install -y --no-install-recommends python3-pip && python3 -m pip install --break-system-packages --upgrade pre-commit || echo "OS is not Debian 12 bookworm"
+	# pre-commit
+	command -v pre-commit || brew install pre-commit || sudo dnf install -y pre-commit || sudo apt install -y pre-commit
+	# install and update pre-commits
 	pre-commit install
 	pre-commit autoupdate
 

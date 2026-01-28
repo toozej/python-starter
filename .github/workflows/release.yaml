@@ -27,6 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           go install github.com/sigstore/cosign/cmd/cosign@latest
+          echo "$HOME/go/bin" >> "$GITHUB_PATH"
           uv sync --group dev
 
       - name: Install GoReleaser
