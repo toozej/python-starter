@@ -1,0 +1,5 @@
+FROM python:slim
+ARG TARGETPLATFORM
+COPY ${TARGETPLATFORM}/python_starter*.whl /tmp/
+RUN python3 -m pip install --break-system-packages /tmp/python_starter*.whl && rm /tmp/python_starter*.whl
+ENTRYPOINT ["python-starter"]

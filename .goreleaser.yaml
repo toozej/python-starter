@@ -57,7 +57,7 @@ dockers_v2:
       - "v{{ .Version }}"
       - "{{ .Version }}"
       - "latest"
-    dockerfile: Dockerfile
+    dockerfile: Dockerfile.goreleaser
     labels:
       "io.artifacthub.package.readme-url": "https://raw.githubusercontent.com/toozej/python-starter/main/README.md"
       "io.artifacthub.package.maintainers": "[{\"name\":\"toozej\"}]"
@@ -89,43 +89,14 @@ dockers_v2:
 
 archives:
   - name_template: >-
-      {{ .ProjectName }}_
-      {{- title .Os }}_
-      {{- if eq .Arch "amd64" }}x86_64
-      {{- else if eq .Arch "386" }}i386
-      {{- else }}{{ .Arch }}{{ end }}
-    format_overrides:
-      - goos: windows
-        formats: ['zip']
+      "{{ .ProjectName }}_{{ .Version }}"
     files:
+      - dist/*.whl
+      - dist/*.tar.gz
       - README.md
       - LICENSE
       - manpages/*
       - completions/*
-
-homebrew_casks:
-  - name: python-starter
-    homepage: https://github.com/toozej/python-starter
-    description: "python starter template"
-    license: GPLv3
-    repository:
-      owner: toozej
-      name: homebrew-tap
-      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
-    manpages:
-      - "manpages/python-starter.1.gz"
-    completions:
-      bash: "completions/python-starter.bash"
-      zsh: "completions/python-starter.zsh"
-      fish: "completions/python-starter.fish"
-    url:
-      verified: "github.com/toozej/python-starter/releases/download"
-    hooks:
-      post:
-        install: |
-          if OS.mac?
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/python-starter"]
-          end
 
 sboms:
   - artifacts: archive
