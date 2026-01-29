@@ -130,17 +130,17 @@ homebrew_casks:
 sboms:
   - artifacts: archive
 
-# Sign checksums (optional; requires Cosign in CI)
 signs:
   - cmd: cosign
-    certificate: "${artifact}.pem"
+    stdin: '{{ .Env.COSIGN_PASSWORD }}'
+    output: true
     args:
-      - sign-blob
-      - "--output-certificate=${certificate}"
-      - "--output-signature=${signature}"
-      - "${artifact}"
-      - "--yes"
-    artifacts: checksum
+      - 'sign-blob'
+      - '--key=env://COSIGN_PRIVATE_KEY'
+      - '--yes'
+      - '--output-signature=${signature}'
+      - '${artifact}'
+    artifacts: all
 
 docker_signs:
   - cmd: cosign
