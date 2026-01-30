@@ -48,17 +48,19 @@ changelog:
       order: 9999
 
 dockers_v2:
-  - id: python-starter
-    images:
+  - id: python-starter-py3.10
+    images: &docker_images
       - 'toozej/python-starter'
       - 'ghcr.io/toozej/python-starter'
       - 'quay.io/toozej/python-starter'
     tags:
-      - "v{{ .Version }}"
-      - "{{ .Version }}"
-      - "latest"
-    dockerfile: Dockerfile.goreleaser
-    labels:
+      - "v{{ .Version }}-py3.10"
+      - "{{ .Version }}-py3.10"
+      - "latest-py3.10"
+    build_args:
+      PYTHON_VERSION: "3.10"
+    dockerfile: Dockerfile
+    labels: &docker_labels
       "io.artifacthub.package.readme-url": "https://raw.githubusercontent.com/toozej/python-starter/main/README.md"
       "io.artifacthub.package.maintainers": "[{\"name\":\"toozej\"}]"
       "io.artifacthub.package.license": "GPLv3"
@@ -73,7 +75,7 @@ dockers_v2:
       "org.opencontainers.image.licenses": "GPL-3.0-only"
       "org.opencontainers.image.title": "{{.ProjectName}}"
       "org.opencontainers.image.vendor": "James Tooze"
-    annotations:
+    annotations: &docker_annotations
       "index,manifest:org.opencontainers.image.authors": "James Tooze https://github.com/toozej/"
       "index,manifest:org.opencontainers.image.created": "{{.Date}}"
       "index,manifest:org.opencontainers.image.description": "python starter template"
@@ -84,8 +86,61 @@ dockers_v2:
       "index,manifest:org.opencontainers.image.title": "{{.ProjectName}}"
       "index,manifest:org.opencontainers.image.vendor": "James Tooze"
       "index,manifest:org.opencontainers.image.version": "{{.Version}}"
-    extra_files:
+    extra_files: &docker_extra_files
       - scripts/goreleaser_entrypoint.sh
+      - pyproject.toml
+      - uv.lock
+      - python_starter/
+      - tests/
+      - README.md
+  - id: python-starter-py3.11
+    images: *docker_images
+    tags:
+      - "v{{ .Version }}-py3.11"
+      - "{{ .Version }}-py3.11"
+      - "latest-py3.11"
+    build_args:
+      PYTHON_VERSION: "3.11"
+    dockerfile: Dockerfile
+    labels: *docker_labels
+    annotations: *docker_annotations
+    extra_files: *docker_extra_files
+  - id: python-starter-py3.12
+    images: *docker_images
+    tags:
+      - "v{{ .Version }}-py3.12"
+      - "{{ .Version }}-py3.12"
+      - "latest-py3.12"
+    build_args:
+      PYTHON_VERSION: "3.12"
+    dockerfile: Dockerfile
+    labels: *docker_labels
+    annotations: *docker_annotations
+    extra_files: *docker_extra_files
+  - id: python-starter-py3.13
+    images: *docker_images
+    tags:
+      - "v{{ .Version }}-py3.13"
+      - "{{ .Version }}-py3.13"
+      - "latest-py3.13"
+    build_args:
+      PYTHON_VERSION: "3.13"
+    dockerfile: Dockerfile
+    labels: *docker_labels
+    annotations: *docker_annotations
+    extra_files: *docker_extra_files
+  - id: python-starter-py3.14
+    images: *docker_images
+    tags:
+      - "v{{ .Version }}-py3.14"
+      - "{{ .Version }}-py3.14"
+      - "latest-py3.14"
+    build_args:
+      PYTHON_VERSION: "3.14"
+    dockerfile: Dockerfile
+    labels: *docker_labels
+    annotations: *docker_annotations
+    extra_files: *docker_extra_files
 
 archives:
   - name_template: >-

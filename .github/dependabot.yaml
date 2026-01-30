@@ -5,8 +5,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "09:00"
+    cooldown:
+      default-days: 7
     labels:
       - "dependencies"
       - "uv"
@@ -18,8 +18,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "09:00"
+    cooldown:
+      default-days: 7
     labels:
       - "dependencies"
       - "github-actions"
@@ -31,8 +31,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "09:00"
+    cooldown:
+      default-days: 7
     labels:
       - "dependencies"
       - "docker"
@@ -44,8 +44,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "09:00"
+    cooldown:
+      default-days: 7
     labels:
       - "dependencies"
       - "devcontainers"
