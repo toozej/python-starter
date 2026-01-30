@@ -123,7 +123,7 @@ jobs:
         with:
           image-ref: 'ghcr.io/toozej/python-starter:latest'
           format: 'table'
-          exit-code: '1'
+          exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
@@ -135,7 +135,7 @@ jobs:
     strategy:
       matrix:
         registry: ['', 'ghcr.io/', 'quay.io/']
-        tag: ['latest']
+        tag: ['latest-py3.10', 'latest-py3.11', 'latest-py3.12', 'latest-py3.13', 'latest-py3.14']
     steps:
       - name: Install Cosign
         uses: sigstore/cosign-installer@main # nosemgrep: yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha

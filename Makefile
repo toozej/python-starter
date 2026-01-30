@@ -10,13 +10,14 @@ MAKEFLAGS += --no-builtin-rules
 IMAGE_AUTHOR = toozej
 IMAGE_NAME = python-starter
 IMAGE_TAG = latest
+IMAGE_PYTHON_VERSION = 3.14
 
 .PHONY: all build test run up down local local-update-deps local-install local-run local-test local-lint local-fmt get-cosign-pub-key verify update-python-version pre-reqs-install pre-commit pre-commit-install pre-commit-run clean help
 
 all: build run verify ## Run default workflow
 
 build: ## Build Dockerized project
-	docker build -f $(CURDIR)/Dockerfile -t $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG) .
+	docker build -f $(CURDIR)/Dockerfile --build-arg PYTHON_VERSION=$(IMAGE_PYTHON_VERSION) -t $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG) .
 
 test: ## Test Dockerized project
 	docker build --target test -f $(CURDIR)/Dockerfile -t $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG) .

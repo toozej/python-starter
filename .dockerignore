@@ -5,7 +5,6 @@
 docs
 LICENSE
 CREDITS.md
-README.md
 Makefile
 Dockerfile*
 docker-compose.yml
