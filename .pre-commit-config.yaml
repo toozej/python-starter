@@ -88,6 +88,14 @@ repos:
       - id: pyupgrade
         args: ["--py311-plus"]
 
+  # run semgrep on all known filetypes
+  - repo: https://github.com/semgrep/pre-commit
+    rev: 'v1.151.0'
+    hooks:
+      - id: semgrep
+        # See https://semgrep.dev/explore to select a ruleset and copy its URL
+        args: ['--config', 'auto', '--error', '--skip-unknown-extensions', '--quiet']
+
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
     hooks:
