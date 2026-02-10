@@ -15,5 +15,8 @@ services:
       # - "traefik.http.routers.python-starter-secure.rule=Host(`python-starter.test`)"
       # - "traefik.http.routers.python-starter-secure.middlewares=headers@file"
       # - "traefik.http.routers.python-starter-secure.tls=true"
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     # networks:
       # - traefik
