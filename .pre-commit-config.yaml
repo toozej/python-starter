@@ -44,13 +44,13 @@ repos:
 
   # lint GitHub Actions workflows
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.10
+    rev: v1.7.11
     hooks:
       - id: actionlint
 
   # Python Linter, Code Style, Error and Complexity Checker, and Formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.0
+    rev: v0.15.1
     hooks:
       - id: ruff
         args: ["--fix"]
@@ -66,7 +66,7 @@ repos:
 
   # Check for updates to dependencies in uv lock file
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.10.0
+    rev: 0.10.2
     hooks:
       - id: uv-lock
 
