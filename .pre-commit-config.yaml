@@ -50,7 +50,7 @@ repos:
 
   # Python Linter, Code Style, Error and Complexity Checker, and Formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.4
+    rev: v0.15.5
     hooks:
       - id: ruff
         args: ["--fix"]
@@ -59,14 +59,14 @@ repos:
 
   # Find dead Python code
   - repo: https://github.com/jendrikseipp/vulture
-    rev: v2.14
+    rev: v2.15
     hooks:
       - id: vulture
         args: []
 
   # Check for updates to dependencies in uv lock file
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.10.7
+    rev: 0.10.9
     hooks:
       - id: uv-lock
 
@@ -90,7 +90,7 @@ repos:
 
   # run semgrep on all known filetypes
   - repo: https://github.com/semgrep/pre-commit
-    rev: 'v1.153.1'
+    rev: 'v1.154.0'
     hooks:
       - id: semgrep
         # See https://semgrep.dev/explore to select a ruleset and copy its URL
