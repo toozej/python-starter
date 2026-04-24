@@ -33,7 +33,7 @@ up: ## Start docker-compose services (pull + up -d)
 down: ## Stop docker-compose services
 	docker compose -f $(CURDIR)/docker-compose.yml down --remove-orphans
 
-local: local-update-deps local-fmt local-lint local-test local-run ## Run local toolchain workflow
+local: local-update-deps local-fmt local-lint pre-commit local-test local-run ## Run local toolchain workflow
 
 local-update-deps: ## Update dependencies locally
 	uv sync --all-groups
