@@ -135,7 +135,7 @@ jobs:
     strategy:
       matrix:
         registry: ['', 'ghcr.io/', 'quay.io/']
-        tag: ['latest-py3.10', 'latest-py3.11', 'latest-py3.12', 'latest-py3.13', 'latest-py3.14']
+        tag: ['latest', 'latest-py3.10', 'latest-py3.11', 'latest-py3.12', 'latest-py3.13', 'latest-py3.14']
     steps:
       - name: Install Cosign
         uses: sigstore/cosign-installer@main # nosemgrep: yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha

@@ -14,9 +14,11 @@ builds:
   - id: wheel
     builder: uv
     buildmode: wheel
+    skip: '{{ eq (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}'
   - id: sdist
     builder: uv
     buildmode: sdist
+    skip: '{{ eq (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}'
 
 universal_binaries:
   - replace: false
@@ -54,8 +56,8 @@ dockers_v2:
       - 'ghcr.io/toozej/python-starter'
       - 'quay.io/toozej/python-starter'
     tags:
-      - "v{{ .Version }}-py3.10"
-      - "{{ .Version }}-py3.10"
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.10{{ end }}'
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.10{{ end }}'
       - "latest-py3.10"
     build_args:
       PYTHON_VERSION: "3.10"
@@ -96,8 +98,8 @@ dockers_v2:
   - id: python-starter-py3.11
     images: *docker_images
     tags:
-      - "v{{ .Version }}-py3.11"
-      - "{{ .Version }}-py3.11"
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.11{{ end }}'
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.11{{ end }}'
       - "latest-py3.11"
     build_args:
       PYTHON_VERSION: "3.11"
@@ -108,8 +110,8 @@ dockers_v2:
   - id: python-starter-py3.12
     images: *docker_images
     tags:
-      - "v{{ .Version }}-py3.12"
-      - "{{ .Version }}-py3.12"
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.12{{ end }}'
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.12{{ end }}'
       - "latest-py3.12"
     build_args:
       PYTHON_VERSION: "3.12"
@@ -120,8 +122,8 @@ dockers_v2:
   - id: python-starter-py3.13
     images: *docker_images
     tags:
-      - "v{{ .Version }}-py3.13"
-      - "{{ .Version }}-py3.13"
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.13{{ end }}'
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.13{{ end }}'
       - "latest-py3.13"
     build_args:
       PYTHON_VERSION: "3.13"
@@ -132,9 +134,10 @@ dockers_v2:
   - id: python-starter-py3.14
     images: *docker_images
     tags:
-      - "v{{ .Version }}-py3.14"
-      - "{{ .Version }}-py3.14"
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.14{{ end }}'
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.14{{ end }}'
       - "latest-py3.14"
+      - "latest"
     build_args:
       PYTHON_VERSION: "3.14"
     dockerfile: Dockerfile
@@ -183,5 +186,6 @@ milestones:
   - close: true
 
 release:
+  disable: '{{ eq (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}'
   footer: |
     **Full Changelog**: https://github.com/toozej/python-starter/compare/{{ .PreviousTag }}...{{ .Tag }}
