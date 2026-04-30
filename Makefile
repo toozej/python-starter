@@ -12,7 +12,7 @@ IMAGE_NAME = python-starter
 IMAGE_TAG = latest
 IMAGE_PYTHON_VERSION = 3.14
 
-.PHONY: all build test run up down local local-update-deps local-install local-run local-test local-lint local-fmt get-cosign-pub-key verify update-python-version pre-reqs-install pre-commit pre-commit-install pre-commit-run clean help
+.PHONY: all build test run up down local local-update-deps local-install local-run local-test local-lint local-fmt local-release-test get-cosign-pub-key verify update-python-version pre-reqs-install pre-commit pre-commit-install pre-commit-run clean help
 
 all: build run verify ## Run default workflow
 
@@ -55,6 +55,10 @@ local-lint: ## Run linters locally (ruff + ty)
 local-fmt: ## Format code locally
 	uv run ruff format .
 
+local-release-test: ## Build assets and test goreleaser config using locally installed golang toolchain and goreleaser
+	goreleaser check
+	goreleaser build --clean --snapshot
+
 get-cosign-pub-key: ## Get python-starter Cosign public key from GitHub
 	test -f $(CURDIR)/python-starter.pub || curl --silent https://raw.githubusercontent.com/toozej/python-starter/main/python-starter.pub -O
 
@@ -90,8 +94,12 @@ pre-commit-run: ## Run pre-commit hooks against all files
 	pre-commit run --all-files
 	uvx ty check
 
-clean: ## Clean up built Docker images
-	docker image rm $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG)
+clean: ## Clean up built Docker images and build artifacts
+	@echo "=== Cleaning up compiled binaries, profiles, and demo files ==="
+	@rm -rf $(CURDIR)/dist/
+	@rm -rf $(CURDIR)/manpages/ $(CURDIR)/completions/
+	@rm -rf $(CURDIR)/venv/ $(CURDIR)/.venv/ $(CURDIR)/.pytest_cache $(CURDIR)/.ruff_cache
+	-docker image rm $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 help: ## Display help text
 	@grep -E '^[a-zA-Z_-]+ ?:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
