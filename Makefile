@@ -63,7 +63,10 @@ get-cosign-pub-key: ## Get python-starter Cosign public key from GitHub
 	test -f $(CURDIR)/python-starter.pub || curl --silent https://raw.githubusercontent.com/toozej/python-starter/main/python-starter.pub -O
 
 verify: get-cosign-pub-key ## Verify Docker image with Cosign
-	cosign verify --key $(CURDIR)/python-starter.pub $(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG)
+	cosign verify \
+		--certificate-identity-regexp '^https://github.com/toozej/python-starter/.github/workflows/release.yaml@refs/tags/.*$$' \
+		--certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+		$(IMAGE_AUTHOR)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 update-python-version: ## Update Python version
 	@VERSION=`curl -s "https://endoflife.date/api/python.json" | jq -r '.[0].latest' | sed 's/\.[0-9]*$$//'`; \
@@ -78,7 +81,7 @@ pre-commit: pre-reqs-install pre-commit-install pre-commit-run ## Install and ru
 
 pre-commit-install: ## Install pre-commit hooks and necessary binaries
 	# cosign
-	go install github.com/sigstore/cosign/cmd/cosign@latest
+	command -v cosign || brew install cosign || go install github.com/sigstore/cosign/v3/cmd/cosign@latest
 	# actionlint
 	command -v actionlint || brew install actionlint || go install github.com/rhysd/actionlint/cmd/actionlint@latest
 	# install and update pre-commits
