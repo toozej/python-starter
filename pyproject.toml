@@ -48,7 +48,7 @@ python-starter = "python_starter.cli:cli"
 test = [
   "pytest>=9.0.3",
   "pytest-xdist>=2.2.1",
-  "pytest-asyncio>=1.2.0",
+  "pytest-asyncio>=1.4.0",
 ]
 lint = [
   "ruff>=0.15.16",
