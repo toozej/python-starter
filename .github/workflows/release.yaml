@@ -33,7 +33,7 @@ jobs:
             exit 1
           fi
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.0
         with:
           fetch-depth: 0
       - name: Fetch all tags
