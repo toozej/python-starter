@@ -27,6 +27,6 @@ jobs:
           uv build
 
       - name: Attest build provenance
-        uses: actions/attest-build-provenance@v4
+        uses: actions/attest-build-provenance@v4.1.0
         with:
           subject-path: "dist/*"
