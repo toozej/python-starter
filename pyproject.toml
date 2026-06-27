@@ -51,7 +51,7 @@ test = [
   "pytest-asyncio>=1.4.0",
 ]
 lint = [
-  "ruff>=0.15.16",
+  "ruff>=0.15.18",
   "ty>=0.0.44",
   "bandit>=1.7.0",
   "vulture>=2.14",
