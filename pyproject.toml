@@ -46,7 +46,7 @@ python-starter = "python_starter.cli:cli"
 # uv dependency groups (PEP 735-style). uv consumes these directly.
 [dependency-groups]
 test = [
-  "pytest>=9.0.3",
+  "pytest>=9.1.1",
   "pytest-xdist>=2.2.1",
   "pytest-asyncio>=1.4.0",
 ]
