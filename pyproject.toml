@@ -88,3 +88,4 @@ paths = ["python_starter"]
 # Prefer downloading Python rather than relying on system Python.
 # This helps keep devcontainers/CI consistent.
 python-preference = "only-managed"
+exclude-newer = "7 days"

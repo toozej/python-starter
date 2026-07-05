@@ -36,7 +36,7 @@ down: ## Stop docker-compose services
 local: local-update-deps local-fmt local-lint pre-commit local-test local-run ## Run local toolchain workflow
 
 local-update-deps: ## Update dependencies locally
-	uv sync --all-groups
+	uv sync --all-groups --upgrade
 
 local-install: ## Install python-starter CLI locally via uv (builds + installs)
 	uv tool install --force-reinstall .
