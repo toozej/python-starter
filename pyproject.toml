@@ -52,7 +52,7 @@ test = [
 ]
 lint = [
   "ruff>=0.15.21",
-  "ty>=0.0.56",
+  "ty>=0.0.59",
   "bandit>=1.7.0",
   "vulture>=2.14",
   "pyupgrade>=3.21.0",
