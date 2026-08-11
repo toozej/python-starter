@@ -1,0 +1,8 @@
+title = "python-starter Gitleaks configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Ignore the obsolete private key in the retained v0.1.0 history"
+commits = ["2669910de4f958ad5e13c42053d4a73ee3ef21e1"]
