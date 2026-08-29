@@ -50,7 +50,7 @@ repos:
 
   # Python Linter, Code Style, Error and Complexity Checker, and Formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.3
+    rev: v0.16.4
     hooks:
       - id: ruff
         args: ["--fix"]
@@ -90,7 +90,7 @@ repos:
 
   # run semgrep on all known filetypes
   - repo: https://github.com/semgrep/pre-commit
-    rev: 'v1.173.0'
+    rev: 'v1.174.0'
     hooks:
       - id: semgrep
         # See https://semgrep.dev/explore to select a ruleset and copy its URL
