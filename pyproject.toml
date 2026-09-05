@@ -31,7 +31,7 @@ classifiers = [
 ]
 
 dependencies = [
-  "click>=8.4.1",
+  "click>=8.5.0",
 ]
 
 [project.urls]
@@ -51,8 +51,8 @@ test = [
   "pytest-asyncio>=1.4.0",
 ]
 lint = [
-  "ruff>=0.16.4",
-  "ty>=0.0.74",
+  "ruff>=0.16.5",
+  "ty>=0.0.75",
   "bandit>=1.7.0",
   "vulture>=2.14",
   "pyupgrade>=3.21.0",
