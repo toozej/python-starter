@@ -1,9 +1,10 @@
 # non-root user example <https://medium.com/@DahlitzF/run-python-applications-as-non-root-user-in-docker-containers-by-example-cba46a0ff384>
-ARG PYTHON_VERSION=3.10
+ARG PYTHON_VERSION=3.15
 FROM python:${PYTHON_VERSION}-slim AS base
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    UV_PYTHON_PREFERENCE=only-system
 
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends make build-essential curl ca-certificates && \

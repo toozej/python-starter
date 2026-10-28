@@ -17,7 +17,7 @@ This repository is designed to be friendly to AI coding agents.
 
 This project uses several tools and platforms:
 
-- **Python**: Requires Python 3.10+ (managed via uv)
+- **Python**: Requires Python 3.11+ (managed via uv)
 - **Build Tool**: [uv](https://docs.astral.sh/uv/) for dependency management
 - **Packaging**: Hatchling (PEP 621), produces a CLI tool via [`python-starter`](pyproject.toml:44)
 - **CLI Framework**: [Click](https://click.palletsprojects.com/)

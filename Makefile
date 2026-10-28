@@ -10,7 +10,7 @@ MAKEFLAGS += --no-builtin-rules
 IMAGE_AUTHOR = toozej
 IMAGE_NAME = python-starter
 IMAGE_TAG = latest
-IMAGE_PYTHON_VERSION = 3.14
+IMAGE_PYTHON_VERSION = 3.15
 
 .PHONY: all build test run up down local local-update-deps local-install local-run local-test local-lint local-fmt local-release-test get-cosign-pub-key verify update-python-version pre-reqs-install pre-commit pre-commit-install pre-commit-run clean help
 

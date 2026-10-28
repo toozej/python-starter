@@ -1,6 +1,6 @@
 # python-starter
 
-![Python](https://img.shields.io/badge/python-3.10%E2%80%933.14-blue)
+![Python](https://img.shields.io/badge/python-3.11%E2%80%933.15-blue)
 ![CI](https://img.shields.io/github/actions/workflow/status/toozej/python-starter/ci.yaml)
 ![Docker Pulls](https://img.shields.io/docker/pulls/toozej/python-starter)
 ![Downloads](https://img.shields.io/github/downloads/toozej/python-starter/total)
@@ -11,7 +11,7 @@
 - ✅ Pre-commit checks (Ruff, Vulture, Bandit, PyUpgrade, `ty`, actionlint, etc.)
 - 🧪 Unit tests with pytest (and a Docker test target)
 - 🐳 Dockerfile + docker-compose examples
-- 🔁 CI matrix for Python 3.10–3.14
+- 🔁 CI matrix for Python 3.11–3.15
 - 🔄 Dependabot updates for Python, Docker, devcontainers, and GitHub Actions
 
 ## 🚀 Quick start

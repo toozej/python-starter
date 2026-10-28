@@ -50,17 +50,17 @@ changelog:
       order: 9999
 
 dockers_v2:
-  - id: python-starter-py3.10
+  - id: python-starter-py3.11
     images: &docker_images
       - 'toozej/python-starter'
       - 'ghcr.io/toozej/python-starter'
       - 'quay.io/toozej/python-starter'
     tags:
-      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.10{{ end }}'
-      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.10{{ end }}'
-      - "latest-py3.10"
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.11{{ end }}'
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.11{{ end }}'
+      - "latest-py3.11"
     build_args:
-      PYTHON_VERSION: "3.10"
+      PYTHON_VERSION: "3.11"
     dockerfile: Dockerfile
     labels: &docker_labels
       "io.artifacthub.package.readme-url": "https://raw.githubusercontent.com/toozej/python-starter/main/README.md"
@@ -95,18 +95,6 @@ dockers_v2:
       - python_starter/
       - tests/
       - README.md
-  - id: python-starter-py3.11
-    images: *docker_images
-    tags:
-      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.11{{ end }}'
-      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.11{{ end }}'
-      - "latest-py3.11"
-    build_args:
-      PYTHON_VERSION: "3.11"
-    dockerfile: Dockerfile
-    labels: *docker_labels
-    annotations: *docker_annotations
-    extra_files: *docker_extra_files
   - id: python-starter-py3.12
     images: *docker_images
     tags:
@@ -137,9 +125,21 @@ dockers_v2:
       - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.14{{ end }}'
       - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.14{{ end }}'
       - "latest-py3.14"
-      - "latest"
     build_args:
       PYTHON_VERSION: "3.14"
+    dockerfile: Dockerfile
+    labels: *docker_labels
+    annotations: *docker_annotations
+    extra_files: *docker_extra_files
+  - id: python-starter-py3.15
+    images: *docker_images
+    tags:
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}v{{ .Version }}-py3.15{{ end }}'
+      - '{{ if ne (envOrDefault "GORELEASER_DOCKER_REFRESH" "false") "true" }}{{ .Version }}-py3.15{{ end }}'
+      - "latest-py3.15"
+      - "latest"
+    build_args:
+      PYTHON_VERSION: "3.15"
     dockerfile: Dockerfile
     labels: *docker_labels
     annotations: *docker_annotations
