@@ -2,7 +2,7 @@
 # and enable modern packaging (PEP 621).
 
 [build-system]
-requires = ["hatchling>=1.32.4"]
+requires = ["hatchling>=1.33.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -46,13 +46,13 @@ python-starter = "python_starter.cli:cli"
 # uv dependency groups (PEP 735-style). uv consumes these directly.
 [dependency-groups]
 test = [
-  "pytest>=9.1.1",
+  "pytest>=9.2.0",
   "pytest-xdist>=2.2.1",
-  "pytest-asyncio>=1.4.0",
+  "pytest-asyncio>=1.4.1",
 ]
 lint = [
-  "ruff>=0.17.2",
-  "ty>=0.0.91",
+  "ruff>=0.17.3",
+  "ty>=0.0.95",
   "bandit>=1.7.0",
   "vulture>=2.14",
   "pyupgrade>=3.22.0",
