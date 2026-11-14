@@ -31,7 +31,7 @@ classifiers = [
 ]
 
 dependencies = [
-  "click>=8.5.0",
+  "click>=8.5.1",
 ]
 
 [project.urls]
@@ -48,11 +48,11 @@ python-starter = "python_starter.cli:cli"
 test = [
   "pytest>=9.2.0",
   "pytest-xdist>=2.2.1",
-  "pytest-asyncio>=1.4.1",
+  "pytest-asyncio>=1.4.1.post1",
 ]
 lint = [
-  "ruff>=0.17.3",
-  "ty>=0.0.95",
+  "ruff>=0.17.4",
+  "ty>=0.0.99",
   "bandit>=1.7.0",
   "vulture>=2.14",
   "pyupgrade>=3.22.0",
