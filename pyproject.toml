@@ -48,11 +48,11 @@ python-starter = "python_starter.cli:cli"
 test = [
   "pytest>=9.2.0",
   "pytest-xdist>=2.2.1",
-  "pytest-asyncio>=1.4.1.post1",
+  "pytest-asyncio>=1.5.0",
 ]
 lint = [
-  "ruff>=0.17.4",
-  "ty>=0.0.99",
+  "ruff>=0.17.5",
+  "ty>=0.0.104",
   "bandit>=1.7.0",
   "vulture>=2.14",
   "pyupgrade>=3.22.0",
